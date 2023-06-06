@@ -2,7 +2,7 @@
 
 En este ejemplo, vamos a ver como podemos trabajar con los workspaces de `npm`.
 
-## Steps
+## Primeros pasos
 
 Vamos a crear el `package.json` principal (podemos usar `npm init -y` para crearlo y luego editarlo):
 
@@ -185,6 +185,8 @@ export const MOTTOS: Record<House, string> = {
 export const getHouseMotto = (house: House): string => MOTTOS[house];
 
 ```
+
+## Aplicaciones web
 
 Vamos a añadir un nuevo workspace para las aplicaciones webs:
 
