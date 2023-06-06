@@ -136,7 +136,7 @@ _./helpers/motto-helpers/src/motto.helpers.ts_
 ```diff
 + import { House } from '@my-org/house-helpers';
 
-export const MOTTOS: Record<House, string> = {
+const MOTTOS: Record<House, string> = {
   stark: 'Winter is Coming!',
   targaryen: 'Fire and Blood!',
   lannister: 'Hear Me Roar!',
@@ -177,7 +177,7 @@ _./helpers/motto-helpers/src/motto.helpers.ts_
 ```diff
 import { House } from '@my-org/house-helpers';
 
-export const MOTTOS: Record<House, string> = {
+const MOTTOS: Record<House, string> = {
   stark: 'Winter is Coming!',
   targaryen: 'Fire and Blood!',
   lannister: 'Hear Me Roar!',
@@ -264,7 +264,7 @@ _./package.json_
 
 ```
 
-Actualicemos los proyectos:
+Actualizamos los proyectos:
 
 _./apps/stark/src/app.component.tsx_
 

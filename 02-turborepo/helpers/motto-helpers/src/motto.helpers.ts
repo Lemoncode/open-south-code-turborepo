@@ -1,6 +1,6 @@
 import { House } from '@my-org/house-helpers';
 
-export const MOTTOS: Record<House, string> = {
+const MOTTOS: Record<House, string> = {
   stark: 'Winter is Coming!',
   targaryen: 'Fire and Blood!',
   lannister: 'Hear Me Roar!',
