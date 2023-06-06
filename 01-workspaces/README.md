@@ -15,6 +15,8 @@ _./package.json_
 }
 ```
 
+> NOTA: Copiamos el fichero `.gitignore` del proyecto.
+
 Podemos indicarle que queremos un nuevo `workspace` dentro de una carpeta llamada `helpers`:
 
 ```bash
