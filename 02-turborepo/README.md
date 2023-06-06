@@ -36,7 +36,7 @@ _./turbo.json_
 >
 > - `cache`: por defecto cachea los resultados de los comandos, pero en este caso no lo necesitamos.
 >
-> - `persistent`: pensado para procesos que se ejecuten en modo "watch" y que dependan unos de otros, hacer que se ejecuten. Sin habilitarlo, no se ejecutarían.
+> - `persistent`: pensado para procesos que se ejecuten en modo "watch" y que dependan unos de otros, lo habilitamos para que no se queden procesos sin ejecutar.
 
 Actualizamos los scripts del `package.json`:
 
