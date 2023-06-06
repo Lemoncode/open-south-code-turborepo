@@ -127,6 +127,8 @@ npm install @my-org/house-helpers -w @my-org/motto-helpers
 
 ```
 
+> NOTA: puede que nos de un fallo de npm que no encuentra el paquete. En este caso podemo borrar el `package-lock.json` y volver a hacer el `npm install`.
+
 Actualizamos el código del proyecto:
 
 _./helpers/motto-helpers/src/motto.helpers.ts_
