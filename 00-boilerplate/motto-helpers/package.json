@@ -19,7 +19,7 @@
     }
   },
   "scripts": {
-    "start": "run-p \"types -- --watch\" \"build -- --watch\"",
+    "build:watch": "run-p \"types -- --watch\" \"build -- --watch\"",
     "build": "vite build",
     "types": "tsc --emitDeclarationOnly"
   },

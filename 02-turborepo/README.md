@@ -13,7 +13,7 @@ npm install turbo --save-dev
 
 ```
 
-> OJO que no es turborepo el nombre del paquete, sino turbo.
+> OJO que NO es turborepo el nombre del paquete, sino turbo.
 
 El fichero más importante que vamos a crear ahora, es `turbo.json` donde definimos:
 
@@ -53,7 +53,7 @@ _./package.json_
   "scripts": {
 -   "start": "run-p start:*",
 +   "start": "turbo start"
--   "start:motto-helpers": "npm start -w @my-org/motto-helpers",
+-   "start:motto-helpers": "npm run build:watch -w @my-org/motto-helpers",
 -   "start:stark": "npm start -w @my-org/house-stark",
 -   "start:targaryen": "npm start -w @my-org/house-targaryen",
 -   "start:lannister": "npm start -w @my-org/house-lannister",
@@ -167,7 +167,7 @@ _./helpers/house-helpers/package.json_
 +   }
 + },
 + "scripts": {
-+   "start": "run-p \"types -- --watch\" \"build -- --watch\"",
++   "build:watch": "run-p \"types -- --watch\" \"build -- --watch\"",
 +   "build": "vite build",
 +   "types": "tsc --emitDeclarationOnly"
 + },
@@ -216,6 +216,72 @@ Vamos a probarlo:
 npm run build
 
 ```
+
+Sabiendo lo anterior, antes de ejecutar el comando `start` deberíamos ejecutar la build de sus dependencias (por ejemplo si borramos la carpeta `dist` de los helpers):
+
+_./turbo.json_
+
+```diff
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "start": {
+      "cache": false,
+      "persistent": true,
++     "dependsOn": ["^build"]
+    },
+    "types": {
+      "outputs": ["dist/**/*"],
+      "dependsOn": ["^build"]
+    },
+    "build": {
+      "outputs": ["dist/**/*"],
+      "dependsOn": ["^build", "types"]
+    }
+  }
+}
+
+```
+
+¿Y si quiero ejecutar la `build` en modo `watch` junto al `start`?:
+
+_./turbo.json_
+
+```diff
+{
+  "$schema": "https://turbo.build/schema.json",
+  "pipeline": {
+    "start": {
+      "cache": false,
+      "persistent": true,
+      "dependsOn": ["^build"]
+    },
+    "types": {
+      "outputs": ["dist/**/*"],
+      "dependsOn": ["^build"]
+    },
+    "build": {
+      "outputs": ["dist/**/*"],
+      "dependsOn": ["^build", "types"]
+    },
++   "build:watch": {}
+  }
+}
+
+```
+
+_./package.json_
+
+```diff
+...
+  "scripts": {
+-   "start": "turbo start",
++   "start": "turbo start build:watch",
+    "build": "turbo build"
+  },
+```
+
+> NOTA: No podemos poner procesos en modo watch como dependencias en `dependsOn` porque quedaria bloqueado el proceso.
 
 Por último, si por ejemplo solamente queremos ejecutar un comando para ciertos proyectos, podemos hacerlo utilizando el flag de `filter`:
 

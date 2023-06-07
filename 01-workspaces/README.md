@@ -96,7 +96,7 @@ _./helpers/house-helpers/package.json_
 
 ## Proyecto motto-helpers
 
-Este proyecto está configurado como un proyecto para poder ser publicado como libreria en `npm`. Por tanto, tiene los comandos de `build` para tal propósito y el comando `start` para poder probarlo en local.
+Este proyecto está configurado como un proyecto para poder ser publicado como libreria en `npm`. Por tanto, tiene los comandos de `build` para tal propósito y el comando `build:watch` para poder probarlo en local.
 
 _./helpers/motto-helpers/package.json_
 
@@ -115,7 +115,7 @@ _./helpers/motto-helpers/package.json_
     }
   },
   "scripts": {
-    "start": "run-p \"types -- --watch\" \"build -- --watch\"",
+    "build:watch": "run-p \"types -- --watch\" \"build -- --watch\"",
     "build": "vite build",
     "types": "tsc --emitDeclarationOnly"
   },
@@ -152,7 +152,7 @@ export const getHouseMotto = (house: House): string => MOTTOS[house];
 Parece que todo funciona correctamente, incluido el tipado. Vamos a probarlo ejecutando en modo local:
 
 ```bash
-npm start -w @my-org/motto-helpers
+npm run build:watch -w @my-org/motto-helpers
 
 ```
 
@@ -230,42 +230,6 @@ npm install @my-org/house-helpers @my-org/motto-helpers -w @my-org/house-targary
 
 ```
 
-Para poder arrancar todos los proyectos a la vez, vamos a instalar la siguiente libreria:
-
-```bash
-npm install npm-run-all --save-dev
-
-```
-
-> NOTA: Existe la opción de ejecutar `npm start --workspaces --if-present` pero en cuanto haya un proyecto en modo watch, se queda bloqueado, ya que npm solamente ejecuta en serie los comandos.
-
-Actualizamos el `package.json` raiz:
-
-_./package.json_
-
-```diff
-{
-  "name": "game-of-thrones",
-  "private": true,
-  "workspaces": [
-    "helpers/*",
-    "apps/*"
-  ],
-+ "scripts": {
-+   "start": "run-p start:*",
-+   "start:motto-helpers": "npm start -w @my-org/motto-helpers",
-+   "start:stark": "npm start -w @my-org/house-stark",
-+   "start:targaryen": "npm start -w @my-org/house-targaryen",
-+   "start:lannister": "npm start -w @my-org/house-lannister",
-+   "start:baratheon": "npm start -w @my-org/house-baratheon"
-+ },
-  "devDependencies": {
-    "npm-run-all": "^4.1.5"
-  }
-}
-
-```
-
 Actualizamos los proyectos:
 
 _./apps/stark/src/app.component.tsx_
@@ -290,8 +254,49 @@ export default App;
 
 ```
 
-> NOTAS:
->
-> Podemos ver los cambios si actualizamos el fichero `src/motto-helpers.ts`.
->
-> Los demás proyectos ya tienen los imports incluidos.
+> NOTA: Los demás proyectos ya tienen los imports incluidos.
+
+Para poder arrancar todos los proyectos a la vez, vamos a instalar la siguiente libreria:
+
+```bash
+npm install npm-run-all --save-dev
+
+```
+
+> NOTA: Existe la opción de ejecutar `npm start --workspaces --if-present` pero en cuanto haya un proyecto en modo watch, se queda bloqueado, ya que npm solamente ejecuta en serie los comandos.
+
+Actualizamos el `package.json` raiz:
+
+_./package.json_
+
+```diff
+{
+  "name": "game-of-thrones",
+  "private": true,
+  "workspaces": [
+    "helpers/*",
+    "apps/*"
+  ],
++ "scripts": {
++   "start": "run-p start:*",
++   "start:motto-helpers": "npm run build:watch -w @my-org/motto-helpers",
++   "start:stark": "npm start -w @my-org/house-stark",
++   "start:targaryen": "npm start -w @my-org/house-targaryen",
++   "start:lannister": "npm start -w @my-org/house-lannister",
++   "start:baratheon": "npm start -w @my-org/house-baratheon"
++ },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
+
+```
+
+Vamos a probarlo:
+
+```bash
+npm start
+
+```
+
+> NOTA: Podemos ver los cambios si actualizamos el fichero `src/motto-helpers.ts`.

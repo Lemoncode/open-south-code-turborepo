@@ -7,7 +7,7 @@
   ],
   "scripts": {
     "start": "run-p start:*",
-    "start:motto-helpers": "npm start -w @my-org/motto-helpers",
+    "start:motto-helpers": "npm run build:watch -w @my-org/motto-helpers",
     "start:stark": "npm start -w @my-org/house-stark",
     "start:targaryen": "npm start -w @my-org/house-targaryen",
     "start:lannister": "npm start -w @my-org/house-lannister",

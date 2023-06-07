@@ -3,7 +3,8 @@
   "pipeline": {
     "start": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "dependsOn": ["^build"]
     },
     "types": {
       "outputs": ["dist/**/*"],
@@ -12,6 +13,7 @@
     "build": {
       "outputs": ["dist/**/*"],
       "dependsOn": ["^build", "types"]
-    }
+    },
+    "build:watch": {}
   }
 }
