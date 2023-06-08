@@ -4,6 +4,9 @@
   "private": false,
   "author": "Lemoncode",
   "license": "MIT",
+  "files": [
+    "dist"
+  ],
   "types": "dist/index.d.ts",
   "type": "module",
   "main": "dist/house-helpers.cjs.js",

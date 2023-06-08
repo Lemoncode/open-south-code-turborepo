@@ -14,6 +14,9 @@
       "outputs": ["dist/**/*"],
       "dependsOn": ["^build", "types"]
     },
-    "build:watch": {}
+    "build:watch": {
+      "cache": false,
+      "persistent": true
+    }
   }
 }

@@ -6,7 +6,7 @@
     "apps/*"
   ],
   "scripts": {
-    "start": "turbo start build:watch",
+    "start": "turbo start build:watch --concurrency 13",
     "build": "turbo build"
   },
   "devDependencies": {

@@ -155,6 +155,9 @@ _./helpers/house-helpers/package.json_
 - "types": "src/index.ts",
 - "type": "module",
 - "main": "src/index.ts",
++ "files": [
++   "dist"
++ ],
 + "types": "dist/index.d.ts",
 + "type": "module",
 + "main": "dist/house-helpers.cjs.js",
@@ -264,7 +267,10 @@ _./turbo.json_
       "outputs": ["dist/**/*"],
       "dependsOn": ["^build", "types"]
     },
-+   "build:watch": {}
++   "build:watch": {
++     "cache": false,
++     "persistent": true
++   }
   }
 }
 
@@ -276,12 +282,16 @@ _./package.json_
 ...
   "scripts": {
 -   "start": "turbo start",
-+   "start": "turbo start build:watch",
++   "start": "turbo start build:watch --concurrency 13",
     "build": "turbo build"
   },
 ```
 
-> NOTA: No podemos poner procesos en modo watch como dependencias en `dependsOn` porque quedaria bloqueado el proceso.
+> NOTAS:
+>
+> No podemos poner procesos en modo watch como dependencias en `dependsOn` porque quedaria bloqueado el proceso.
+>
+> concurrency: por defecto el máximo de procesos peristentes concurrentes es de 10.
 
 Por último, si por ejemplo solamente queremos ejecutar un comando para ciertos proyectos, podemos hacerlo utilizando el flag de `filter`:
 
